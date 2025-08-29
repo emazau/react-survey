@@ -1,24 +1,33 @@
 import { useState } from "react";
+import AnswersList from "./AnswersList";
 
 function Survey() {
   const [open, setOpen] = useState(false); //Ignore this state
-    const [userData, setUserData] = useState({
-    features: [],
-    drawbacks: [],
-    consistency: 0,
+  const [amount, setAmount] = useState(0);
+  const initalForm = {
     color: "0",
-    logo: 0,
     spendTime: [],
     details: "",
     name: "",
     email: ""   
-    });
-    console.log(userData)
-    console.log(userData.spendTime.length)
+    };
+ 
+    
+    const [userData, setUserData] = useState(initalForm);
+    const [history, setHistory] = useState([]);
 
 
-  const submitForm = () => {
+
+  const submitForm = (event) => {
+    event.preventDefault();
     console.log(userData);
+    setAmount(amount => amount+1)
+    setHistory(prevItems => [...prevItems, userData])
+
+    setUserData(initalForm);
+
+    console.log(history);
+
 
 
   };
@@ -60,7 +69,7 @@ function Survey() {
   <main className="survey">
       <section className={`survey__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
-        {/* answers should go here */}
+        <AnswersList history={history}/>
       </section>
       <section className="survey__form">
         
@@ -173,7 +182,11 @@ function Survey() {
       name="email"
       onChange={e => setUserData({...userData, email: e.target.value})}
       value={userData.email} /></label>
-      <input className="form__submit" type="submit" value="Submit Survey!" />
+      <input className="form__submit" type="submit" 
+      value="Submit Survey!" 
+      onChange={submitForm}
+      
+      />
 
 
 
@@ -189,103 +202,3 @@ function Survey() {
 }
 
 export default Survey;
-
-{/*
-<div className="form__group">
-    <h3>What would you say that are the best features of your rubber duck?</h3>
-    <ul>
-  <li>
-    <label
-      ><input
-        name="spend-time"
-        type="checkbox"
-        value="swimming"
-      />it&apos;s Yellow! </label
-    >
-  </li>
-  <li>
-    <label
-      ><input name="spend-time" type="checkbox" value="bathing" />Bathing</label
-    >
-  </li>
-  <li>
-    <label
-      ><input
-        name="spend-time"
-        type="checkbox"
-        value="chatting"
-      />It Squakse!</label
-    >
-  </li>
-  <li>
-    <label
-      ><input name="spend-time" type="checkbox" value="noTime" />I don&apos;t like to
-      spend time with it</label>
-  </li>
-</ul>
-
-  </div>
-           <div className="form__group">
-    <h3>How what are the drawbacks.</h3>
-    <ul>
-  <li>
-    <label
-      ><input
-        name="spend-time"
-        type="checkbox"
-        value="swimming"
-      />Swimming</label
-    >
-  </li>
-  <li>
-    <label
-      ><input name="spend-time" type="checkbox" value="bathing" />Bathing</label
-    >
-  </li>
-  <li>
-    <label
-      ><input
-        name="spend-time"
-        type="checkbox"
-        value="chatting"
-      />Chatting</label
-    >
-  </li>
-  <li>
-    <label
-      ><input name="spend-time" type="checkbox" value="noTime" />I don&apos;t like to
-      spend time with it</label
-    >
-  </li>
-</ul>
-
-  </div>
-         
-  
-  <div className="form__group radio">
-    <h3>How do you rate your rubber duck colour?</h3>
-    <ul>
-  <li>
-    <input id="color-one" type="radio" name="color" value="1" /><label
-      >1</label
-    >
-  </li>
-  <li>
-    <input id="color-two" type="radio" name="color" value="2" /><label
-      >2</label
-    >
-  </li>
-  <li>
-    <input id="color-three" type="radio" name="color" value="3" /><label
-      >3</label
-    >
-  </li>
-  <li>
-    <input id="color-four" type="radio" name="color" value="4" /><label
-      
-      >4</label
-    >
-  </li>
-</ul>
-
-  </div>*/}

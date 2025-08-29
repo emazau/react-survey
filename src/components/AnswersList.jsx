@@ -1,14 +1,13 @@
 import AnswersItem from "./AnswersItem";
+/* eslint-disable react/prop-types */
+export default function AnswersList({history }) {
+  console.log("Inside AnswersList: ", history);
 
-export default function AnswersList(props) {
-  console.log("Inside AnswersList: ", props);
-
-  const { answersList } = props;
 
   return (
     <ul>
-      {answersList.map((answerItem, i) => (
-        <AnswersItem answerItem={answerItem} key={i} />
+      {history.map((data, i) => (
+        <AnswersItem data={data} key={i} />
       ))}
     </ul>
   );
